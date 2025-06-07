@@ -1,0 +1,7 @@
+Tecnologia,Tipo_Comunicacao,Complexidade_Implementacao,Requer_Servidor,Suporte_Navegador,Latencia,Ideal_Para,Vantagens,Desvantagens
+localStorage + storage event,Entre abas do mesmo navegador,Baixa,Não,Excelente,Muito baixa,Sync entre abas locais,"Sem servidor, muito simples",Só funciona localmente
+BroadcastChannel API,Entre abas do mesmo navegador,Baixa,Não,Bom (moderno),Muito baixa,Sync entre abas modernas,"API moderna, simples",Só funciona localmente
+WebSocket (ws library),Cliente-Servidor bidirecional,Média,Sim,Excelente,Baixa,Apps tempo real avançados,Performance máxima,Complexidade de implementação
+Server-Sent Events (SSE),Servidor para Cliente unidirecional,Média,Sim,Excelente,Baixa,Notificações unidirecionais,Simples para notificações,Só servidor para cliente
+Socket.IO,Cliente-Servidor bidirecional com fallbacks,Baixa-Média,Sim,Excelente,Baixa,Apps tempo real fáceis,Fallbacks automáticos,Dependência externa
+Polling com AJAX,Cliente solicita ao Servidor,Baixa,Sim,Excelente,Média-Alta,Atualizações simples,Muito simples,"Ineficiente, alta latência"
