@@ -1,3 +1,4 @@
+
 const data = {
   homeName: '',
   awayName: '',
@@ -10,12 +11,12 @@ const data = {
 const channel = new BroadcastChannel('football');
 
 function renderOverlay() {
-  document.getElementById('homeName') && (document.getElementById('homeName').textContent = data.homeName);
-  document.getElementById('awayName') && (document.getElementById('awayName').textContent = data.awayName);
-  document.getElementById('homeScore') && (document.getElementById('homeScore').textContent = data.homeScore);
-  document.getElementById('awayScore') && (document.getElementById('awayScore').textContent = data.awayScore);
-  document.getElementById('competition') && (document.getElementById('competition').textContent = data.competition);
-  document.getElementById('period') && (document.getElementById('period').textContent = data.period);
+  document.getElementById('homeName')?.textContent = data.homeName;
+  document.getElementById('awayName')?.textContent = data.awayName;
+  document.getElementById('homeScore')?.textContent = data.homeScore;
+  document.getElementById('awayScore')?.textContent = data.awayScore;
+  document.getElementById('competition')?.textContent = data.competition;
+  document.getElementById('period')?.textContent = data.period;
 }
 
 function changeScore(side, delta) {
