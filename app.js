@@ -10,12 +10,12 @@ const data = {
 const channel = new BroadcastChannel('football');
 
 function renderOverlay() {
-  document.getElementById('homeName')?.textContent = data.homeName;
-  document.getElementById('awayName')?.textContent = data.awayName;
-  document.getElementById('homeScore')?.textContent = data.homeScore;
-  document.getElementById('awayScore')?.textContent = data.awayScore;
-  document.getElementById('competition')?.textContent = data.competition;
-  document.getElementById('period')?.textContent = data.period;
+  document.getElementById('homeName') && (document.getElementById('homeName').textContent = data.homeName);
+  document.getElementById('awayName') && (document.getElementById('awayName').textContent = data.awayName);
+  document.getElementById('homeScore') && (document.getElementById('homeScore').textContent = data.homeScore);
+  document.getElementById('awayScore') && (document.getElementById('awayScore').textContent = data.awayScore);
+  document.getElementById('competition') && (document.getElementById('competition').textContent = data.competition);
+  document.getElementById('period') && (document.getElementById('period').textContent = data.period);
 }
 
 function changeScore(side, delta) {
@@ -36,10 +36,10 @@ channel.onmessage = (e) => {
 
 window.onload = () => {
   const hash = window.location.hash.replace('#', '');
+  const section = document.getElementById(hash);
+  if (section) section.hidden = false;
 
   if (hash === 'admin') {
-    document.getElementById('admin').hidden = false;
-
     document.getElementById('input-home').oninput = (e) => {
       data.homeName = e.target.value;
       broadcast();
@@ -56,10 +56,5 @@ window.onload = () => {
       data.period = e.target.value;
       broadcast();
     };
-
-  } else if (hash === 'placar') {
-    document.getElementById('overlay_placar').hidden = false;
-  } else if (hash === 'timer') {
-    document.getElementById('overlay_timer').hidden = false;
   }
 };
