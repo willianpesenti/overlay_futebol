@@ -28,13 +28,23 @@ class FootballOverlayApp {
 
     // Real-time synchronization setup
     setupRealTimeSync() {
-        this.connected = true;
-        this.syncMethod = 'localStorage';
-
-        this.setupLocalStorageFallback();
-        this.setupHeartbeat();
-        this.updateConnectionStatus();
-    }
+        this.connected = false;
+        this.connectedClients = 0;
+        
+        // Try BroadcastChannel first
+        if (typeof BroadcastChannel !== 'undefined') {
+            try {
+                this.channel = new BroadcastChannel('football-overlay-sync');
+                this.channel.onmessage = (event) => {
+                    this.handleMessage(event.data);
+                };
+                this.syncMethod = 'BroadcastChannel';
+                this.connected = true;
+                console.log('✅ BroadcastChannel initialized');
+            } catch (error) {
+                console.warn('⚠️ BroadcastChannel failed, using localStorage fallback');
+                this.setupLocalStorageFallback();
+            }
         } else {
             console.warn('⚠️ BroadcastChannel not supported, using localStorage fallback');
             this.setupLocalStorageFallback();
