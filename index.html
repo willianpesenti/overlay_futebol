@@ -3,297 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Overlay System - Tempo Real</title>
+    <title>Sistema de Overlays - Futebol</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <!-- Página Principal -->
-        <div id="home-page" class="page active">
-            <div class="container">
-                <header class="text-center py-16">
-                    <h1>⚽ Sistema de Overlay para Futebol</h1>
-                    <p class="text-secondary">Transmissões profissionais com atualização em tempo real</p>
-                </header>
+    <!-- PAINEL ADMINISTRATIVO -->
+    <div id="admin-panel" class="admin-panel">
+        <div class="container">
+            <header class="admin-header">
+                <h1>Painel de Controle - Overlays de Futebol</h1>
+                <div class="connection-status">
+                    <span class="status-indicator" id="connection-status">🟢 Conectado</span>
+                </div>
+            </header>
 
-                <div class="grid">
-                    <div class="card">
-                        <div class="card__body">
-                            <h3>🎮 Painel Administrativo</h3>
-                            <p>Controle completo da transmissão em tempo real</p>
-                            <button class="btn btn--primary" onclick="navigateTo('admin')">Acessar Painel</button>
-                        </div>
+            <div class="admin-grid">
+                <!-- CONFIGURAÇÃO DOS TIMES -->
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Configuração dos Times</h3>
                     </div>
-
-                    <div class="card">
-                        <div class="card__body">
-                            <h3>📺 URLs para OBS</h3>
-                            <p>Configure as Browser Sources com estas URLs:</p>
-                            <div class="url-list">
-                                <div class="url-item">
-                                    <strong>/placar</strong> - Apenas pontuação
-                                    <button class="btn btn--sm btn--outline" onclick="copyToClipboard(window.location.href + '#placar')">Copiar</button>
+                    <div class="card__body">
+                        <div class="teams-config">
+                            <!-- TIME DA CASA -->
+                            <div class="team-config">
+                                <h4>Time da Casa</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Nome do Time</label>
+                                    <input type="text" class="form-control" id="home-name" value="Flamengo">
                                 </div>
-                                <div class="url-item">
-                                    <strong>/timer</strong> - Cronômetro da partida
-                                    <button class="btn btn--sm btn--outline" onclick="copyToClipboard(window.location.href + '#timer')">Copiar</button>
+                                <div class="form-group">
+                                    <label class="form-label">Escudo</label>
+                                    <select class="form-control" id="home-shield">
+                                        <option value="🔴⚫">Flamengo 🔴⚫</option>
+                                        <option value="⚫⚪">Corinthians ⚫⚪</option>
+                                        <option value="🟢⚪">Palmeiras 🟢⚪</option>
+                                        <option value="🔴⚫⚪">São Paulo 🔴⚫⚪</option>
+                                        <option value="⚫⚪">Santos ⚫⚪</option>
+                                        <option value="⚫⚪">Vasco ⚫⚪</option>
+                                        <option value="🟢🔴⚪">Fluminense 🟢🔴⚪</option>
+                                        <option value="⚫⚪">Botafogo ⚫⚪</option>
+                                        <option value="🔵⚫⚪">Grêmio 🔵⚫⚪</option>
+                                        <option value="🔴⚪">Internacional 🔴⚪</option>
+                                        <option value="🔵⚪">Cruzeiro 🔵⚪</option>
+                                        <option value="⚫⚪">Atlético-MG ⚫⚪</option>
+                                        <option value="🔵🔴⚪">Bahia 🔵🔴⚪</option>
+                                        <option value="🔴⚫">Sport 🔴⚫</option>
+                                    </select>
                                 </div>
-                                <div class="url-item">
-                                    <strong>/teams</strong> - Nomes e escudos
-                                    <button class="btn btn--sm btn--outline" onclick="copyToClipboard(window.location.href + '#teams')">Copiar</button>
-                                </div>
-                                <div class="url-item">
-                                    <strong>/scoreboard</strong> - Placar completo
-                                    <button class="btn btn--sm btn--outline" onclick="copyToClipboard(window.location.href + '#scoreboard')">Copiar</button>
-                                </div>
-                                <div class="url-item">
-                                    <strong>/full</strong> - Overlay completo
-                                    <button class="btn btn--sm btn--outline" onclick="copyToClipboard(window.location.href + '#full')">Copiar</button>
+                                <div class="form-group">
+                                    <label class="form-label">Cor Principal</label>
+                                    <input type="color" class="form-control color-input" id="home-color" value="#ff0000">
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="card">
-                        <div class="card__body">
-                            <h3>⚙️ Como Configurar</h3>
-                            <ol>
-                                <li>Abra o <strong>Painel Administrativo</strong> em uma aba</li>
-                                <li>Configure os times e competição</li>
-                                <li>No OBS, adicione <strong>Browser Source</strong></li>
-                                <li>Cole a URL do overlay desejado</li>
-                                <li>Configure Width: 1920, Height: 1080</li>
-                                <li>Controle tudo pelo painel admin!</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card__body">
-                            <h3>🚀 Funcionalidades</h3>
-                            <ul>
-                                <li>✅ Atualização em tempo real verdadeiro</li>
-                                <li>✅ Múltiplos overlays modulares</li>
-                                <li>✅ Timer com play/pause/reset</li>
-                                <li>✅ Placares personalizáveis</li>
-                                <li>✅ Escudos de times brasileiros</li>
-                                <li>✅ Status de conexão em tempo real</li>
-                            </ul>
+                            <!-- TIME VISITANTE -->
+                            <div class="team-config">
+                                <h4>Time Visitante</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Nome do Time</label>
+                                    <input type="text" class="form-control" id="away-name" value="Corinthians">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Escudo</label>
+                                    <select class="form-control" id="away-shield">
+                                        <option value="🔴⚫">Flamengo 🔴⚫</option>
+                                        <option value="⚫⚪" selected>Corinthians ⚫⚪</option>
+                                        <option value="🟢⚪">Palmeiras 🟢⚪</option>
+                                        <option value="🔴⚫⚪">São Paulo 🔴⚫⚪</option>
+                                        <option value="⚫⚪">Santos ⚫⚪</option>
+                                        <option value="⚫⚪">Vasco ⚫⚪</option>
+                                        <option value="🟢🔴⚪">Fluminense 🟢🔴⚪</option>
+                                        <option value="⚫⚪">Botafogo ⚫⚪</option>
+                                        <option value="🔵⚫⚪">Grêmio 🔵⚫⚪</option>
+                                        <option value="🔴⚪">Internacional 🔴⚪</option>
+                                        <option value="🔵⚪">Cruzeiro 🔵⚪</option>
+                                        <option value="⚫⚪">Atlético-MG ⚫⚪</option>
+                                        <option value="🔵🔴⚪">Bahia 🔵🔴⚪</option>
+                                        <option value="🔴⚫">Sport 🔴⚫</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cor Principal</label>
+                                    <input type="color" class="form-control color-input" id="away-color" value="#000000">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Painel Administrativo -->
-        <div id="admin-page" class="page">
-            <div class="admin-container">
-                <header class="admin-header">
-                    <h1>🎮 Painel Administrativo</h1>
-                    <div class="admin-status">
-                        <span class="status-indicator" id="connection-status">🔴</span>
-                        <span id="connection-text">Desconectado</span>
-                        <button class="btn btn--outline btn--sm" onclick="navigateTo('home')">← Voltar</button>
+                <!-- CONTROLE DO PLACAR -->
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Controle do Placar</h3>
                     </div>
-                </header>
-
-                <div class="admin-grid">
-                    <!-- Configuração de Times -->
-                    <div class="admin-card">
-                        <h3>👕 Times</h3>
-                        <div class="team-config">
-                            <div class="team-row">
-                                <label>Time da Casa:</label>
-                                <select id="home-team" class="form-control">
-                                    <option value="">Selecione...</option>
-                                </select>
-                                <input type="text" id="home-name" class="form-control" placeholder="Nome personalizado">
-                                <input type="color" id="home-color" class="color-picker" value="#E8112D">
-                            </div>
-                            <div class="team-row">
-                                <label>Time Visitante:</label>
-                                <select id="away-team" class="form-control">
-                                    <option value="">Selecione...</option>
-                                </select>
-                                <input type="text" id="away-name" class="form-control" placeholder="Nome personalizado">
-                                <input type="color" id="away-color" class="color-picker" value="#0066CC">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Controle de Placar -->
-                    <div class="admin-card">
-                        <h3>⚽ Placar</h3>
-                        <div class="score-control">
-                            <div class="score-team">
-                                <span class="team-name" id="home-display">Casa</span>
+                    <div class="card__body">
+                        <div class="score-controls">
+                            <div class="team-score-control">
+                                <h4 id="home-team-display">Flamengo</h4>
+                                <div class="score-display" id="home-score">0</div>
                                 <div class="score-buttons">
-                                    <button class="btn btn--secondary" onclick="changeScore('home', -1)">-</button>
-                                    <input type="number" id="home-score" value="0" class="score-input" min="0">
-                                    <button class="btn btn--secondary" onclick="changeScore('home', 1)">+</button>
+                                    <button class="btn btn--primary" onclick="changeScore('home', 1)">+1</button>
+                                    <button class="btn btn--secondary" onclick="changeScore('home', -1)">-1</button>
                                 </div>
                             </div>
-                            <div class="score-vs">VS</div>
-                            <div class="score-team">
-                                <span class="team-name" id="away-display">Visitante</span>
+                            <div class="vs-separator">X</div>
+                            <div class="team-score-control">
+                                <h4 id="away-team-display">Corinthians</h4>
+                                <div class="score-display" id="away-score">0</div>
                                 <div class="score-buttons">
-                                    <button class="btn btn--secondary" onclick="changeScore('away', -1)">-</button>
-                                    <input type="number" id="away-score" value="0" class="score-input" min="0">
-                                    <button class="btn btn--secondary" onclick="changeScore('away', 1)">+</button>
+                                    <button class="btn btn--primary" onclick="changeScore('away', 1)">+1</button>
+                                    <button class="btn btn--secondary" onclick="changeScore('away', -1)">-1</button>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn--outline btn--full-width mt-8" onclick="resetScores()">Reset Placar</button>
+                        <button class="btn btn--outline btn--full-width mt-8" onclick="resetScore()">Reset Placar (0-0)</button>
                     </div>
+                </div>
 
-                    <!-- Timer da Partida -->
-                    <div class="admin-card">
-                        <h3>⏱️ Timer</h3>
-                        <div class="timer-display" id="timer-display">00:00</div>
+                <!-- CONTROLE DO TIMER -->
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Controle do Timer</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="timer-display">
+                            <div class="timer-time" id="timer-display">00:00</div>
+                            <div class="timer-period" id="period-display">1º Tempo</div>
+                        </div>
                         <div class="timer-controls">
-                            <button class="btn btn--primary" id="play-pause-btn" onclick="toggleTimer()">▶️ Play</button>
+                            <button class="btn btn--primary" id="play-pause-btn" onclick="toggleTimer()">▶️ Iniciar</button>
                             <button class="btn btn--secondary" onclick="resetTimer()">🔄 Reset</button>
                         </div>
-                        <div class="timer-config">
-                            <label>Tempo Inicial (min):</label>
-                            <input type="number" id="timer-minutes" value="0" min="0" max="120" class="form-control">
+                        <div class="form-group mt-8">
+                            <label class="form-label">Período</label>
+                            <select class="form-control" id="period-select" onchange="changePeriod()">
+                                <option value="1º Tempo">1º Tempo</option>
+                                <option value="2º Tempo">2º Tempo</option>
+                                <option value="Prorrogação">Prorrogação</option>
+                                <option value="Pênaltis">Pênaltis</option>
+                            </select>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Período da Partida -->
-                    <div class="admin-card">
-                        <h3>⚽ Período</h3>
-                        <select id="game-period" class="form-control">
-                            <option value="1º Tempo">1º Tempo</option>
-                            <option value="Intervalo">Intervalo</option>
-                            <option value="2º Tempo">2º Tempo</option>
-                            <option value="Prorrogação 1º">Prorrogação 1º</option>
-                            <option value="Prorrogação 2º">Prorrogação 2º</option>
-                            <option value="Pênaltis">Pênaltis</option>
-                            <option value="Encerrado">Encerrado</option>
-                        </select>
+                <!-- INFORMAÇÕES DA PARTIDA -->
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Informações da Partida</h3>
                     </div>
-
-                    <!-- Competição -->
-                    <div class="admin-card">
-                        <h3>🏆 Competição</h3>
-                        <select id="competition" class="form-control">
-                            <option value="">Selecione...</option>
-                        </select>
-                        <input type="text" id="custom-competition" class="form-control mt-8" placeholder="Competição personalizada">
+                    <div class="card__body">
+                        <div class="form-group">
+                            <label class="form-label">Competição</label>
+                            <input type="text" class="form-control" id="competition" value="Brasileirão">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Estádio</label>
+                            <input type="text" class="form-control" id="stadium" value="Maracanã">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Data</label>
+                            <input type="date" class="form-control" id="match-date" value="2024-06-06">
+                        </div>
                     </div>
+                </div>
 
-                    <!-- Preview -->
-                    <div class="admin-card preview-card">
-                        <h3>👀 Preview</h3>
-                        <div class="preview-overlay" id="preview-overlay">
-                            <div class="preview-scoreboard">
-                                <div class="preview-team">
-                                    <span class="preview-emoji" id="preview-home-emoji">⚽</span>
-                                    <span class="preview-name" id="preview-home-name">Casa</span>
-                                    <span class="preview-score" id="preview-home-score">0</span>
-                                </div>
-                                <div class="preview-timer" id="preview-timer">00:00</div>
-                                <div class="preview-team">
-                                    <span class="preview-score" id="preview-away-score">0</span>
-                                    <span class="preview-name" id="preview-away-name">Visitante</span>
-                                    <span class="preview-emoji" id="preview-away-emoji">⚽</span>
-                                </div>
+                <!-- URLS DOS OVERLAYS -->
+                <div class="card overlay-urls">
+                    <div class="card__header">
+                        <h3>URLs dos Overlays para OBS</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="url-list">
+                            <div class="url-item">
+                                <strong>Placar:</strong>
+                                <code id="placar-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('placar')">Copiar</button>
                             </div>
-                            <div class="preview-period" id="preview-period">1º Tempo</div>
+                            <div class="url-item">
+                                <strong>Timer:</strong>
+                                <code id="timer-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('timer')">Copiar</button>
+                            </div>
+                            <div class="url-item">
+                                <strong>Times:</strong>
+                                <code id="times-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('times')">Copiar</button>
+                            </div>
+                            <div class="url-item">
+                                <strong>Scoreboard:</strong>
+                                <code id="scoreboard-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('scoreboard')">Copiar</button>
+                            </div>
+                            <div class="url-item">
+                                <strong>Info:</strong>
+                                <code id="info-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('info')">Copiar</button>
+                            </div>
+                            <div class="url-item">
+                                <strong>Completo:</strong>
+                                <code id="completo-url"></code>
+                                <button class="btn btn--sm btn--secondary" onclick="copyUrl('completo')">Copiar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Overlay: Apenas Placar -->
-        <div id="placar-page" class="page overlay-page">
-            <div class="overlay-content">
-                <div class="score-only">
-                    <div class="score-item home">
-                        <span class="score-number" id="overlay-home-score">0</span>
-                    </div>
-                    <div class="score-separator">-</div>
-                    <div class="score-item away">
-                        <span class="score-number" id="overlay-away-score">0</span>
-                    </div>
+    <!-- OVERLAY: PLACAR -->
+    <div id="overlay-placar" class="overlay-container hidden">
+        <div class="placar-overlay">
+            <div class="team-score home-team">
+                <span class="team-shield" id="overlay-home-shield">🔴⚫</span>
+                <span class="team-name" id="overlay-home-name">Flamengo</span>
+                <span class="score" id="overlay-home-score">0</span>
+            </div>
+            <div class="score-separator">X</div>
+            <div class="team-score away-team">
+                <span class="score" id="overlay-away-score">0</span>
+                <span class="team-name" id="overlay-away-name">Corinthians</span>
+                <span class="team-shield" id="overlay-away-shield">⚫⚪</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: TIMER -->
+    <div id="overlay-timer" class="overlay-container hidden">
+        <div class="timer-overlay">
+            <div class="timer-time-overlay" id="overlay-timer-time">00:00</div>
+            <div class="timer-period-overlay" id="overlay-timer-period">1º Tempo</div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: TIMES -->
+    <div id="overlay-times" class="overlay-container hidden">
+        <div class="times-overlay">
+            <div class="team-info home-team">
+                <span class="team-shield-large" id="overlay-times-home-shield">🔴⚫</span>
+                <span class="team-name-large" id="overlay-times-home-name">Flamengo</span>
+            </div>
+            <div class="vs-large">VS</div>
+            <div class="team-info away-team">
+                <span class="team-name-large" id="overlay-times-away-name">Corinthians</span>
+                <span class="team-shield-large" id="overlay-times-away-shield">⚫⚪</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: SCOREBOARD -->
+    <div id="overlay-scoreboard" class="overlay-container hidden">
+        <div class="scoreboard-overlay">
+            <div class="scoreboard-header">
+                <span class="competition-name" id="overlay-scoreboard-competition">Brasileirão</span>
+                <span class="timer-info">
+                    <span id="overlay-scoreboard-timer">00:00</span>
+                    <span id="overlay-scoreboard-period">1º Tempo</span>
+                </span>
+            </div>
+            <div class="scoreboard-teams">
+                <div class="team-scoreboard home">
+                    <span class="shield" id="overlay-scoreboard-home-shield">🔴⚫</span>
+                    <span class="name" id="overlay-scoreboard-home-name">Flamengo</span>
+                    <span class="score" id="overlay-scoreboard-home-score">0</span>
+                </div>
+                <div class="scoreboard-vs">X</div>
+                <div class="team-scoreboard away">
+                    <span class="score" id="overlay-scoreboard-away-score">0</span>
+                    <span class="name" id="overlay-scoreboard-away-name">Corinthians</span>
+                    <span class="shield" id="overlay-scoreboard-away-shield">⚫⚪</span>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Overlay: Timer -->
-        <div id="timer-page" class="page overlay-page">
-            <div class="overlay-content">
-                <div class="timer-only">
-                    <div class="timer-display-overlay" id="overlay-timer">00:00</div>
-                    <div class="period-display" id="overlay-period">1º Tempo</div>
+    <!-- OVERLAY: INFO -->
+    <div id="overlay-info" class="overlay-container hidden">
+        <div class="info-overlay">
+            <div class="match-info">
+                <div class="info-item">
+                    <span class="info-label">Competição:</span>
+                    <span class="info-value" id="overlay-info-competition">Brasileirão</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estádio:</span>
+                    <span class="info-value" id="overlay-info-stadium">Maracanã</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Data:</span>
+                    <span class="info-value" id="overlay-info-date">06/06/2024</span>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Overlay: Teams -->
-        <div id="teams-page" class="page overlay-page">
-            <div class="overlay-content">
-                <div class="teams-only">
-                    <div class="team-display home">
-                        <span class="team-emoji" id="overlay-home-emoji">⚽</span>
-                        <span class="team-name" id="overlay-home-name">Casa</span>
-                    </div>
-                    <div class="vs-separator">VS</div>
-                    <div class="team-display away">
-                        <span class="team-name" id="overlay-away-name">Visitante</span>
-                        <span class="team-emoji" id="overlay-away-emoji">⚽</span>
-                    </div>
+    <!-- OVERLAY: COMPLETO -->
+    <div id="overlay-completo" class="overlay-container hidden">
+        <div class="completo-overlay">
+            <div class="completo-header">
+                <div class="competition-info">
+                    <span id="overlay-completo-competition">Brasileirão</span>
+                    <span id="overlay-completo-stadium">Maracanã</span>
+                </div>
+                <div class="timer-info-completo">
+                    <span id="overlay-completo-timer">00:00</span>
+                    <span id="overlay-completo-period">1º Tempo</span>
                 </div>
             </div>
-        </div>
-
-        <!-- Overlay: Scoreboard Completo -->
-        <div id="scoreboard-page" class="page overlay-page">
-            <div class="overlay-content">
-                <div class="full-scoreboard">
-                    <div class="scoreboard-team home">
-                        <span class="scoreboard-emoji" id="scoreboard-home-emoji">⚽</span>
-                        <span class="scoreboard-name" id="scoreboard-home-name">Casa</span>
-                        <span class="scoreboard-score" id="scoreboard-home-score">0</span>
-                    </div>
-                    <div class="scoreboard-center">
-                        <div class="scoreboard-timer" id="scoreboard-timer">00:00</div>
-                        <div class="scoreboard-period" id="scoreboard-period">1º Tempo</div>
-                    </div>
-                    <div class="scoreboard-team away">
-                        <span class="scoreboard-score" id="scoreboard-away-score">0</span>
-                        <span class="scoreboard-name" id="scoreboard-away-name">Visitante</span>
-                        <span class="scoreboard-emoji" id="scoreboard-away-emoji">⚽</span>
-                    </div>
+            <div class="completo-main">
+                <div class="team-complete home">
+                    <span class="shield-complete" id="overlay-completo-home-shield">🔴⚫</span>
+                    <span class="name-complete" id="overlay-completo-home-name">Flamengo</span>
+                    <span class="score-complete" id="overlay-completo-home-score">0</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- Overlay: Completo -->
-        <div id="full-page" class="page overlay-page">
-            <div class="overlay-content">
-                <div class="full-overlay">
-                    <div class="full-header">
-                        <div class="competition-name" id="full-competition">Campeonato</div>
-                    </div>
-                    <div class="full-scoreboard">
-                        <div class="full-team home">
-                            <span class="full-emoji" id="full-home-emoji">⚽</span>
-                            <span class="full-name" id="full-home-name">Casa</span>
-                            <span class="full-score" id="full-home-score">0</span>
-                        </div>
-                        <div class="full-center">
-                            <div class="full-timer" id="full-timer">00:00</div>
-                            <div class="full-period" id="full-period">1º Tempo</div>
-                        </div>
-                        <div class="full-team away">
-                            <span class="full-score" id="full-away-score">0</span>
-                            <span class="full-name" id="full-away-name">Visitante</span>
-                            <span class="full-emoji" id="full-away-emoji">⚽</span>
-                        </div>
-                    </div>
+                <div class="vs-complete">X</div>
+                <div class="team-complete away">
+                    <span class="score-complete" id="overlay-completo-away-score">0</span>
+                    <span class="name-complete" id="overlay-completo-away-name">Corinthians</span>
+                    <span class="shield-complete" id="overlay-completo-away-shield">⚫⚪</span>
                 </div>
             </div>
         </div>
